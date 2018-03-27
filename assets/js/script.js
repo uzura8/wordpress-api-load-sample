@@ -4,9 +4,10 @@ $(function(){
   $(".js-load").each(function(i, elem) {
     var $obj = $(elem);
     var getUri = $obj.data('uri');
-    var getData = $obj.data('options');
-    var tempSelector = $obj.data('template');
-    var articlesUri = $obj.data('articles_uri');
+    var getData = $obj.data('params');
+    var options = $obj.data('options');
+    var tempSelector = options.template;
+    var postsUri = $obj.data('posts_uri');
     if (!getUri || !tempSelector) return;
     var template = Handlebars.compile($(tempSelector).html());
     $.ajax({
@@ -20,7 +21,7 @@ $(function(){
       complete: function(xhr, textStatus) {
       },
       success: function(json, status) {
-        var html = template({posts: json, articles_uri: articlesUri});
+        var html = template({posts: json, articles_uri: postsUri});
         $obj.append(html);
       },
       error: function(result, status) {

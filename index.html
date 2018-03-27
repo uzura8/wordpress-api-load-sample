@@ -14,18 +14,16 @@
     <div
       class="js-load"
       data-uri="http://example.com/news/wp-json/wp/v2/posts"
-      data-options='{"categories": 1, "per_page": 3, "_jsonp": "callback_news"}'
-      data-template="#template-posts"
-      data-articles_uri="/category/news/"></div>
+      data-params='{"categories": 1, "per_page": 3, "_jsonp": "callback_news"}'
+      data-options='{"template":"#template-posts", "posts_uri":"/category/news/"}'></div>
   </div>
   <div id="event_section">
     <h2>新着イベント</h2>
     <div
       class="js-load"
       data-uri="http://example.com/news/wp-json/wp/v2/posts"
-      data-options='{"categories": 2, "per_page": 3, "_jsonp": "callback_event"}'
-      data-template="#template-posts"
-      data-articles_uri="/category/event/"></div>
+      data-params='{"categories": 2, "per_page": 3, "_jsonp": "callback_event"}'
+      data-options='{"template":"#template-posts", "posts_uri":"/category/event/"}'></div>
   </div>
 </div>
 
@@ -39,8 +37,8 @@
   </li>
 {{/each}}
 </ul>
-{{#if articles_uri}}
-<div><a href="{{articles_uri}}">もっとみる</a></div>
+{{#if posts_uri}}
+<div><a href="{{posts_uri}}">もっとみる</a></div>
 {{/if}}
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
