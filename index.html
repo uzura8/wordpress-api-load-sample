@@ -11,21 +11,19 @@
   <h1>トップページサンプル</h1>
   <div id="news_section">
     <h2>新着お知らせ</h2>
-    <div
+    <div id="news_list"
       class="js-load"
-      data-uri="http://example.com/news/wp-json/wp/v2/posts"
-      data-options='{"categories": 1, "per_page": 3, "_jsonp": "callback_news"}'
-      data-template="#template-posts"
-      data-articles_uri="/category/news/"></div>
+      data-uri="http://e-tree.jp/news/wp-json/wp/v2/posts"
+      data-params='{"categories": 1, "per_page": 3, "_jsonp": "callback_news"}'
+      data-options='{"type":"news", "template":"#template-posts", "posts_uri":"/category/news/", "disp_thumbnail":1}'></div>
   </div>
   <div id="event_section">
     <h2>新着イベント</h2>
-    <div
+    <div id="event_list"
       class="js-load"
-      data-uri="http://example.com/news/wp-json/wp/v2/posts"
-      data-options='{"categories": 2, "per_page": 3, "_jsonp": "callback_event"}'
-      data-template="#template-posts"
-      data-articles_uri="/category/event/"></div>
+      data-uri="http://e-tree.jp/news/wp-json/wp/v2/posts"
+      data-params='{"categories": 2, "per_page": 3, "_jsonp": "callback_event"}'
+      data-options='{"type":"event", "template":"#template-posts", "posts_uri":"/category/event/", "disp_thumbnail":1}'></div>
   </div>
 </div>
 
@@ -39,8 +37,8 @@
   </li>
 {{/each}}
 </ul>
-{{#if articles_uri}}
-<div><a href="{{articles_uri}}">もっとみる</a></div>
+{{#if postsUri}}
+<div><a href="{{posts_uri}}">もっとみる</a></div>
 {{/if}}
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>

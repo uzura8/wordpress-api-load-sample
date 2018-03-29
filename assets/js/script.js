@@ -1,14 +1,14 @@
 'use strict';
 $(function(){
   moment.locale('ja');
-  $(".js-load").each(function(i, elem) {
+  $('.js-load').each(function(i, elem) {
     var $obj = $(elem);
     var getUri = $obj.data('uri');
-    var getData = $obj.data('options');
-    var tempSelector = $obj.data('template');
-    var articlesUri = $obj.data('articles_uri');
-    if (!getUri || !tempSelector) return;
-    var template = Handlebars.compile($(tempSelector).html());
+    var getData = $obj.data('params');
+    var options = $obj.data('options');
+    var jsonpFuncName = !empty(getData._jsonp) ? getData._jsonp : '';
+    if (!getUri) return;
+    var template = Handlebars.compile($(options.template).html());
     $.ajax({
       type: 'GET',
       url: getUri,
@@ -20,7 +20,13 @@ $(function(){
       complete: function(xhr, textStatus) {
       },
       success: function(json, status) {
-        var html = template({posts: json, articles_uri: articlesUri});
+        json.media_url = '';
+        if (Boolean(options.disp_thumbnail)) {
+          for (var i = 0; i < json.length; i++) {
+            json[i].media_url = getMediaUrlFromContent(json[i].content.rendered);
+          }
+        }
+        var html = template({posts: json, postsUri: options.posts_uri});
         $obj.append(html);
       },
       error: function(result, status) {
@@ -38,6 +44,17 @@ Handlebars.registerHelper('strim', function(content, width) {
 Handlebars.registerHelper('dateformat', function(datetime, format) {
   return moment(datetime).format(format);
 });
+
+var getMediaUrlFromContent = function (content) {
+  if (content.length === 0) return '';
+  var returnImg;
+  $(content).find('img').each(function(i, elem) {
+    if (!empty(returnImg)) return;
+    if (elem.className.match(/wp-image-/)) returnImg = elem.src;
+  });
+  if (empty(returnImg)) return '';
+  return returnImg;
+}
 
 var empty = function (data) {
   if (data === null) return true;
