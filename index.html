@@ -4,18 +4,27 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <title>Sample</title>
 </head>
 <body>
 <div class="container">
-  <h1>トップページサンプル</h1>
+  <h1>WordPress API 読込サンプル(サムネイル画像対応版)</h1>
   <div id="news_section">
     <h2>新着お知らせ</h2>
     <div id="news_list"
       class="js-load"
       data-uri="http://example.com/news/wp-json/wp/v2/posts"
       data-params='{"categories": 1, "per_page": 3, "_jsonp": "callback_news"}'
-      data-options='{"type":"news", "template":"#template-posts", "posts_uri":"/category/news/", "disp_thumbnail":1}'></div>
+      data-options='{"template":"#template-posts", "posts_uri":"/category/news/", "disp_thumbnail":1}'></div>
+    <!--
+      data-uri: API の URLを指定
+      data-params: API の GET パラメータを指定
+      data-options: その他オプションを指定
+        template: template のセレクタを指定
+        posts_uri: 「もっとみる」リンクで指定する記事一覧の URL を指定
+        disp_thumbnail: 記事一覧にサムネイルを表示する場合は「1」を指定する
+    -->
   </div>
   <div id="event_section">
     <h2>新着イベント</h2>
@@ -23,10 +32,11 @@
       class="js-load"
       data-uri="http://example.com/news/wp-json/wp/v2/posts"
       data-params='{"categories": 2, "per_page": 3, "_jsonp": "callback_event"}'
-      data-options='{"type":"event", "template":"#template-posts", "posts_uri":"/category/event/", "disp_thumbnail":1}'></div>
+      data-options='{"template":"#template-posts", "posts_uri":"/category/event/", "disp_thumbnail":1}'></div>
   </div>
 </div>
 
+<!-- template for Handlebars -->
 <script type="text/x-handlebars-template" id="template-posts">
 <ul>
 {{#each posts}}
@@ -41,10 +51,11 @@
 <div><a href="{{posts_uri}}">もっとみる</a></div>
 {{/if}}
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/locale/ja.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/locale/ja.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="/assets/js/script.js"></script>
 </body>
 </html>
