@@ -6,6 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <title>Sample</title>
+  <style>
+  .media img.trim {
+    overflow: hidden;
+    width: 64px;
+    height: 64px;
+    position: relative;
+  }
+  </style>
 </head>
 <body>
 <div class="container">
@@ -16,7 +24,7 @@
       class="js-load"
       data-uri="http://example.com/news/wp-json/wp/v2/posts"
       data-params='{"categories": 1, "per_page": 3, "_jsonp": "callback_news"}'
-      data-options='{"template":"#template-posts", "posts_uri":"/category/news/", "disp_thumbnail":1}'></div>
+      data-options='{"template":"#template-posts", "posts_uri":"/blog/category/news/", "disp_thumbnail":1}'></div>
     <!--
       data-uri: API の URLを指定
       data-params: API の GET パラメータを指定
@@ -32,23 +40,32 @@
       class="js-load"
       data-uri="http://example.com/news/wp-json/wp/v2/posts"
       data-params='{"categories": 2, "per_page": 3, "_jsonp": "callback_event"}'
-      data-options='{"template":"#template-posts", "posts_uri":"/category/event/", "disp_thumbnail":1}'></div>
+      data-options='{"template":"#template-posts", "posts_uri":"/blog/category/event/", "disp_thumbnail":1}'></div>
   </div>
 </div>
 
 <!-- template for Handlebars -->
 <script type="text/x-handlebars-template" id="template-posts">
-<ul>
+<ul class="media-list">
 {{#each posts}}
-  <li>
-    <h3><a href="{{link}}">{{title.rendered}}</a></h3>
-    <div class="content">{{strim content.rendered 30}}</div>
-    <time datetime="{{date}}">{{dateformat date 'YYYY年MM月DD日 HH:mm'}}</time>
+  <li class="media">
+  {{#if media}}
+    <div class="media-left">
+      <a href="{{link}}">
+        <img class="media-object trim" src="{{media.media_details.sizes.thumbnail.source_url}}" alt="{{media.title.rendered}}">
+      </a>
+    </div>
+  {{/if}}
+    <div class="media-body">
+      <h4 class="media-heading"><a href="{{link}}">{{title.rendered}}</a></h4>
+      <div class="content">{{strim content.rendered 30}}</div>
+      <time datetime="{{date}}">{{dateformat date 'YYYY年MM月DD日 HH:mm'}}</time>
+    </div>
   </li>
 {{/each}}
 </ul>
 {{#if postsUri}}
-<div><a href="{{posts_uri}}">もっとみる</a></div>
+<div><a href="{{postsUri}}">もっとみる</a></div>
 {{/if}}
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
